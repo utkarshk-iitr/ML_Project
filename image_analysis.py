@@ -4,7 +4,7 @@ from ultralytics import YOLO
 
 model = YOLO('best.pt')
 
-img = cv2.imread('input/image1.jpg')
+img = cv2.imread('input/image3.jpeg')
 results = model.predict(source=img, imgsz=640, conf=0.25)
 r = results[0]
 
@@ -21,5 +21,5 @@ if r.masks is not None:
 
 annotated = r.plot(boxes=False)
 cv2.putText(annotated, f'Road Damage: {percentage_damage:.2f}%',(40, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
-cv2.imwrite('output/out_img1.jpg', annotated)
+cv2.imwrite('output/img_out3.jpeg', annotated)
 print(f'Damage: {percentage_damage:.2f}%')
