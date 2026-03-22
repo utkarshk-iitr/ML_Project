@@ -4,7 +4,7 @@ from ultralytics import YOLO
 from collections import deque
 
 best_model = YOLO('best.pt')
-video_path = 'input/sample1.mp4'
+video_path = 'input/sample3.mp4'
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 font_scale = 1
@@ -17,7 +17,7 @@ damage_deque = deque(maxlen=20)
 cap = cv2.VideoCapture(video_path)
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output/output1.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
+out = cv2.VideoWriter('output/output3.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
 while cap.isOpened():
     ret, frame = cap.read()
