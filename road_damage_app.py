@@ -3,8 +3,8 @@ import numpy as np
 from ultralytics import YOLO
 from collections import deque
 
-best_model = YOLO('model/best.pt')
-video_path = 'sample_video.mp4'
+best_model = YOLO('best.pt')
+video_path = 'dataset/sample.mp4'
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 font_scale = 1
@@ -17,14 +17,13 @@ damage_deque = deque(maxlen=20)
 cap = cv2.VideoCapture(video_path)
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('road_damage_assessment.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
+out = cv2.VideoWriter('test_output.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
 while cap.isOpened():
     ret, frame = cap.read()
     if ret:
         results = best_model.predict(source=frame, imgsz=640, conf=0.25)
         processed_frame = results[0].plot(boxes=False)
-        
         percentage_damage = 0 
         
         if results[0].masks is not None:
@@ -41,21 +40,12 @@ while cap.isOpened():
         damage_deque.append(percentage_damage)
         smoothed_percentage_damage = sum(damage_deque) / len(damage_deque)
             
-        cv2.line(processed_frame, (text_position[0], text_position[1] - 10),
-                 (text_position[0] + 350, text_position[1] - 10), background_color, 40)
-        
+        cv2.line(processed_frame, (text_position[0], text_position[1] - 10),(text_position[0] + 350, text_position[1] - 10), background_color, 40)
         cv2.putText(processed_frame, f'Road Damage: {smoothed_percentage_damage:.2f}%', text_position, font, font_scale, font_color, 2, cv2.LINE_AA)         
-    
         out.write(processed_frame)
 
-        cv2.imshow('Road Damage Assessment', processed_frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
     else:
         break
 
 cap.release()
 out.release()
-
-cv2.destroyAllWindows()
