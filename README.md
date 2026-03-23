@@ -159,6 +159,6 @@ This project is part of the CSL-382 course assignment at IIT Roorkee.
 
 **Aadit Kumar Sahoo**
 
-**Kavy Vaghela**
-
+**Vaghela Kavy Piyushkumar**
+23114105
 ---
