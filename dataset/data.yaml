@@ -3,3 +3,5 @@ val: ../valid/images
 
 nc: 1
 names: ['Pothole']
+
+link: "https://www.kaggle.com/datasets/farzadnekouei/pothole-image-segmentation-dataset"
