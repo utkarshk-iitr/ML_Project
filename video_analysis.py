@@ -7,8 +7,8 @@ def process_video(num):
     model = YOLO('best.pt')
     cap = cv2.VideoCapture(f'input/sample{num}.mp4')
     
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(f'output/output{num}.avi', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
+    fourcc = cv2.VideoWriter_fourcc(*'VP80')
+    out = cv2.VideoWriter(f'output/output{num}.webm', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
     
     font = cv2.FONT_HERSHEY_SIMPLEX
     damage_deque = deque(maxlen=20)
@@ -93,5 +93,5 @@ def process_video(num):
     cap.release()
     out.release()
 
-# process_video(1)
+process_video(1)
 process_video(2)
